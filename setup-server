@@ -1,0 +1,20 @@
+#!/usr/bin/expect -f
+spawn ambari-server setup
+
+# Don't customize user account for ambari-server daemon
+send "n"
+
+# Download and install default JDK: Oracle JDK 1.8 + Java Cryptography Extension (JCE) Policy Files 8
+send "1"
+
+# Accept license at http://www.oracle.com/technetwork/java/javase/terms/license/index.html
+send "y"
+
+# Enable Ambari Server to download and install GPL Licensed LZO packages
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
+send "y"
+
+# Skip advanced PostgreSQL config
+send "n"
+
+expect eof
