@@ -2,19 +2,24 @@
 spawn ambari-server setup
 
 # Don't customize user account for ambari-server daemon
-send "n"
+expect "Customize user account for ambari-server daemon \[y/n\] \(n\)?\r"
+send "n\r"
 
 # Download and install default JDK: Oracle JDK 1.8 + Java Cryptography Extension (JCE) Policy Files 8
-send "1"
+expect "Enter choice \(1\):\r"
+send "1\r"
 
 # Accept license at http://www.oracle.com/technetwork/java/javase/terms/license/index.html
-send "y"
+expect "Do you accept the Oracle Binary Code License Agreement \[y/n\] \(y\)?\r"
+send "y\r"
 
 # Enable Ambari Server to download and install GPL Licensed LZO packages
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
-send "y"
+expect "Enable Ambari Server to download and install GPL Licensed LZO packages \[y/n\] \(n\)?\r"
+send "y\r"
 
 # Skip advanced PostgreSQL config
-send "n"
+expect "Enter advanced database configuration \[y/n\] \(n\)?\r"
+send "n\r"
 
 expect eof
