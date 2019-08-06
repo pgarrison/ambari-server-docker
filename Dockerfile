@@ -52,4 +52,6 @@ RUN ./setup-server \
 
 ENTRYPOINT ambari-server start \
     && PID=$(cat /var/run/ambari-server/ambari-server.pid); \
-       tail -f --pid=$PID /var/log/ambari-server/ambari-server.out
+       if [ -z "$PID" ]; then \
+         tail -f --pid=$PID /var/log/ambari-server/ambari-server.out; \
+       fi
