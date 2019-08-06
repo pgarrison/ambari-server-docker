@@ -50,4 +50,6 @@ RUN ./setup-server \
     # does it
     && echo "ambari-server.user=root" >> /etc/ambari-server/conf/ambari.properties
 
-ENTRYPOINT ambari-server start
+ENTRYPOINT ambari-server start \
+    && PID=$(cat /var/run/ambari-server/ambari-server.pid); \
+       tail -f --pid=$PID /var/log/ambari-server/ambari-server.out
