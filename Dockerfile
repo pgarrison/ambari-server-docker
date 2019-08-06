@@ -39,8 +39,13 @@ RUN apt-get update \
     && apt-get install -y expect ./ambari-server/target/*.deb \
     && rm -rf /var/lib/apt/lists
 
-## Step 3: Setup Ambari Server
+# Step 3: Setup Ambari Server
 COPY setup-server setup-server
-RUN ./setup-server
+RUN ./setup-server \
+    && rm setup-server \
+    # This line that sets the user seems redundant since setting up the server
+    # does it, but somehow docker doesn't track the change when the setup script
+    # does it
+    && echo "ambari-server.user=root" >> /etc/ambari-server/conf/ambari.properties
 
 ENTRYPOINT ambari-server start
